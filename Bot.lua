@@ -9,4 +9,11 @@ _G.Client = Client
 _G.ManClient = ManClient
 
 Client:run("Bot " .. Token)
+Client:waitFor("ready")
+
 ManClient:run("Bot " .. ManToken)
+ManClient:waitFor("ready")
+
+local ToDM = Client:getUser("533536581055938580")
+
+

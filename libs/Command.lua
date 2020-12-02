@@ -1,9 +1,5 @@
 local Commands = {}
 
-
-
-
-
 function New(Client)
 
     local Guilds = {
