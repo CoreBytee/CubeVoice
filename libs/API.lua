@@ -4,15 +4,14 @@ function Module:New(JobId)
 
     local NewServer = {}
 
+    local Client = _G.Client
     local ManClient = _G.ManClient
 
     ManClient:createGuild("CubeVoice Server: " .. JobId)
     local Guild
 
     ManClient:once("guildCreate", function(GuildGotten)
-
         Guild = GuildGotten
-
     end)
 
     ManClient:waitFor("guildCreate")
@@ -36,7 +35,7 @@ function Module:New(JobId)
     ManClient:on("voiceChannelLeave", function(Member)
         
         if not Member.voiceChannel then
-            Member.user:send("You disconnected!")
+            Client:getUser(Member.user.id):send("You disconnected!")
             Member:kick("You disconnected!")
         end
 
@@ -67,6 +66,40 @@ function Module:New(JobId)
     end
     
     return NewServer
+
+end
+
+function Module:GetRobloxId(User)
+    if not User then print(1) return end
+    if not User.id then print(2) return end
+
+    local BaseLink = "https://verify.eryn.io/api/user/"
+
+    local Http = require("coro-http")
+
+    local Req, RequestData = Http.request("GET", BaseLink .. User.id)
+    RequestData = require("json").decode(RequestData)
+
+    if not RequestData.status == "ok" then
+		print("Error:  " .. RequestData.error .. ", Code:" .. RequestData.code)
+		if RequestData.code == 429 then
+			print("too mutch requests")
+			require("timer").sleep(RequestData.retryAfterSeconds * 1000 + 1)
+			for i = 0, 5 do
+				local Req, RequestData = Http.request("GET", BaseLink .. User.id)
+				RequestData = require("json").decode(RequestData)
+				
+				if RequestData.status == "ok" then 
+					return RequestData
+				end
+			end
+			print("Error code: 429")
+		else
+			return 
+        end
+    else
+        return RequestData
+	end
 
 end
 
