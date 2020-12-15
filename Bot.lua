@@ -39,6 +39,12 @@ App.route({method = "GET", path = "/notfound"}, function (req, res, go)
     res.headers["Content-Type"] = "text/html"
 end)
 
+App.route({method = "GET", path = "/gamenotfound"}, function (req, res, go)
+    res.body = Read("./Pages/GameNotFound.html")
+    res.code = 200
+    res.headers["Content-Type"] = "text/html"
+end)
+
 App.route({method = "GET", path = "/enter"}, function (req, res, go)
 
     local Params = {

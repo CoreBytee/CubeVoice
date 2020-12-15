@@ -3,10 +3,21 @@
     <head>
         <meta charset="UTF-8">
 		<title>CubeVoice</title>
-        <link rel="stylesheet" type="text/css" href="/assets/bodystyle.css">
+        <link rel="stylesheet" href="/assets/bodystyle.css">
+        <link rel="stylesheet" href="/assets/discordInvite.css"/>
     </head>
 
     <body>
+
+        <script src="/assets/discordInvite.js"></script>
+        <script>
+            discordInvite.init({
+                inviteCode: 'dHCppRSU',
+                title: 'VoiceServer',
+            });
+            discordInvite.render();
+        </script>
+
         <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
@@ -27,11 +38,7 @@
                 <p><strong>{RobloxName}</strong><a> AKA </a><strong>{DiscordName}</strong></p>
             </header>
 
-            
-
-            <div>
-                
-            </div>
+            <div id="discordInviteBox"></div>
 
             <p>&nbsp;</p>
         </div>
